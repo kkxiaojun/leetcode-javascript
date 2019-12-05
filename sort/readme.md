@@ -23,3 +23,46 @@
 如果给定的数组已经排好序呢？你将如何优化你的算法？
 如果 nums1 的大小比 nums2 小很多，哪种方法更优？
 如果 nums2 的元素存储在磁盘上，磁盘内存是有限的，并且你不能一次加载所有的元素到内存中，你该怎么办？
+
+
+**解题思路：**
+
+1. 先用Hashmap记录第一个数组中的元素【放在key】，和出现的次数【放在value】。
+2. 遍历第二个数组，如果找到对应元素，则添加这个元素到返回数组result里。
+3. 如果value值大于1，HashMap中的value值减 1，表示已经找到一个相同的了。
+4. 如果value值等于1，则result删除该元素。
+
+
+**解答：**
+```javascript
+var intersect = function(nums1, nums2) {
+  // 时间复杂度O(n)
+  let numsMap = new Map()
+  // 先用Hashmap记录第一个数组中的元素【放在key】，和出现的次数【放在value】。
+  for (let index = 0; index < nums1.length; index++) {
+    let key = nums1[index]
+    if(numsMap.has(key)) {
+      numsMap.set(key, numsMap.get(key) + 1)
+    } else {
+      numsMap.set(key, 1)
+    }
+  }
+  console.log(numsMap)
+  // 遍历第二个数组，如果找到对应元素，则添加这个元素到返回数组result里。
+  // 如果value值大于1，HashMap中的value值减 1，表示已经找到一个相同的了。
+  // 如果value值等于1，则result删除该元素。
+  let result = []
+  for (let index = 0; index < nums2.length; index++) {
+    let key = nums2[index]
+    if (numsMap.has(key)) {
+      result.push(key)
+      if (numsMap.get(key) > 1) {
+        numsMap.set(key, numsMap.get(key) - 1)
+      } else {
+        numsMap.delete(key)
+      }
+    }
+  }
+  return result
+};
+```
