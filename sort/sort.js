@@ -15,7 +15,6 @@ var intersect = function(nums1, nums2) {
       numsMap.set(key, 1)
     }
   }
-  console.log(numsMap)
   // 遍历第二个数组，如果找到对应元素，则添加这个元素到返回数组result里。
   // 如果value值大于1，HashMap中的value值减 1，表示已经找到一个相同的了。
   // 如果value值等于1，则result删除该元素。
@@ -33,14 +32,6 @@ var intersect = function(nums1, nums2) {
   }
   return result
 };
-
-
-console.log(intersect([1,2,2,1], [2]))
-
-console.log(intersect([1,2,2,1], [2,2]))
-
-
-console.log(intersect([4,9,5], [9,4,9,8,4]))
 
 
 // 解法二：暴力法
@@ -83,7 +74,6 @@ var pivotIndex = function(nums) {
   return result
 };
 var nums = [1, 7, 3, 6, 5, 6]
-console.log('nums:', pivotIndex(nums))
 
 /**
  * 寻找数组的中心索引
@@ -111,4 +101,50 @@ var pivotIndex1 = function(nums) {
   return -1
 };
 var nums1 = [1, 7, 3, 6, 5, 6]
-console.log('nums1:', pivotIndex1(nums1))
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ * 时间复杂度：O(n)
+ */
+var dominantIndex = function(nums) {
+  var max = Math.max(...nums)
+  var maxIndex = nums.indexOf(max)
+  nums.splice(maxIndex, 1)
+  var secondMax = Math.max(...nums)
+  if (secondMax * 2 <= max) {
+    return maxIndex
+  }
+  return -1
+};
+
+var dominantIndex1 = function(nums) {
+  var max = Math.max(...nums)
+  var maxIndex = nums.indexOf(max)
+  for (let i = 0; i < nums.length; i++) {
+    if (maxIndex !== i && nums[i] * 2 > max) {
+      return -1
+    }
+  }
+  return maxIndex
+};
+
+console.log(dominantIndex([3, 6, 1, 0]))
+console.log(dominantIndex([1, 2, 3, 4]))
+
+/**
+ * @param {number[]} digits
+ * @return {number[]}
+ */
+var plusOne = function(digits) {
+  var len = digits.length
+  for (let i = len - 1; i >= 0; i--) {
+    digits[i]++
+    if ((digits[i] % 10) !== 0) {
+      return digits
+    }
+  }
+  digits = [...Array(len + 1)].map(_=>0)
+  digits[0] = 1
+  return digits
+};
