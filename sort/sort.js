@@ -57,3 +57,58 @@ var intersect1 = function(nums1, nums2) {
   return result;
 };
 
+/**
+ * 寻找数组的中心索引
+ * @param {number[]} nums
+ * @return {number}
+ * 解法1
+ * 思路：动态计算index左边和右边的和，当left == right满足时，break
+ * 时间复杂度：O(n^2)
+ */
+var pivotIndex = function(nums) {
+  var len = nums.length
+  var result = -1
+  var reducer = function (a, b) { return a + b }
+  for (let index = 0; index < len; index++) {
+    // the left sums 
+    var leftSums = nums.slice(0, index + 1).reduce(reducer)
+    // the right sums
+    var rightSums = nums.slice(index, len).reduce(reducer)
+    // if leftSums === rightSums break
+    if (leftSums === rightSums) {
+      result = index
+      break
+    }
+  }
+  return result
+};
+var nums = [1, 7, 3, 6, 5, 6]
+console.log('nums:', pivotIndex(nums))
+
+/**
+ * 寻找数组的中心索引
+ * @param {number[]} nums
+ * @return {number}
+ * 解法2
+ * 思路：
+ * 数组的和S，当满足中心索引时：S - nums[i] - leftSums == leftSums
+ * 时间复杂度：O(n)
+ * 空间复杂度：O(n)
+ */
+var pivotIndex1 = function(nums) {
+  var len = nums.length
+  var S = 0
+  for (var i = 0; i< len; i++) {
+      S += nums[i]
+  }
+  var leftSums = 0
+  for (let index = 0; index < len; index++) {
+    if (leftSums === (S - nums[index] - leftSums)) {
+      return index
+    }
+    leftSums += nums[index]
+  }
+  return -1
+};
+var nums1 = [1, 7, 3, 6, 5, 6]
+console.log('nums1:', pivotIndex1(nums1))
