@@ -26,6 +26,7 @@ leetcode 题解，记录自己的 leetcode 解题之路。
 |[350. 两个数组的交集 II](./arrAndString/350.md)|简单|
 |[704. 寻找数组的中心索引](./arrAndString/704.md)|简单|
 |[747. 至少是其他数字两倍的最大数](./arrAndString/747.md)|简单|
+|[67. 二进制求和](./arrAndString/67.md)|简单|
 
 
 # 数据结构与算法的总结

@@ -148,3 +148,28 @@ var plusOne = function(digits) {
   digits[0] = 1
   return digits
 };
+
+/**
+ * @param {string} a 
+ * @param {string} b
+ * @return {string}
+ * 0 + 0 = 0, 0 + 1 = 1, 1 + 0 = 1, 1 + 1 = 1
+ */
+var addBinary = function(a, b) {
+  // 最终结果
+  var result = ''
+  // 是否进一位
+  var lastCa = 0
+  for (var i = a.length - 1, j = b.length -1; i >=0 || j >= 0; i--, j--) {
+    var sum = lastCa
+    sum += (i >= 0 ? parseInt(a[i]) : 0 )
+    sum += (j >= 0 ? parseInt(b[j]) : 0 )
+    // sum可能值为 0，1，2，3，当为2，则取0，为3取1
+    result += sum % 2
+    // 是否进位，sum：0，1不进，2，3进位
+    lastCa = Math.floor(sum / 2)
+  }
+  // 最后一位是否有进位
+  result += lastCa === 1 ? lastCa : ''
+  return result.split('').reverse().join('')
+};
