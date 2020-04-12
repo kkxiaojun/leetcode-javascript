@@ -173,3 +173,22 @@ var addBinary = function(a, b) {
   result += lastCa === 1 ? lastCa : ''
   return result.split('').reverse().join('')
 };
+
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ * indexOf的实现
+ */
+var strStr = function(haystack, needle) {
+  if (!needle) {
+    return 0
+  }
+  for (let i = 0; i < haystack.length; i++) {
+    if (haystack.substr(i, needle.length) === needle) {
+      return i
+    }
+  }
+  return -1
+};
+strStr('mississippi', 'issip')
