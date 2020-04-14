@@ -19,6 +19,9 @@ leetcode 题解，记录自己的 leetcode 解题之路。
 1. 元素可以随机存取
 2. 每个元素可以通过**索引**识别
 
+**双指针**
+一个指针从始端开始，而另一个指针从末端开始。
+
 |题目|难度|
 |--|--|
 |[7. 整数反转](./arrAndString/7.md)|简单|
@@ -29,6 +32,7 @@ leetcode 题解，记录自己的 leetcode 解题之路。
 |[67. 二进制求和](./arrAndString/67.md)|简单|
 |[数组去重](./arrAndString/repeatArr.md)|-|
 |[14. 最长公共前缀](./arrAndString/14.md)|简单|
+|[344. 反正字符串](./arrAndString/344.md)|简单|
 
 
 # 数据结构与算法的总结

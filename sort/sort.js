@@ -272,5 +272,25 @@ var longestCommonPrefix = function(strs) {
   return comonStr
 };
 
-console.log('longestCommonPrefix:', longestCommonPrefix(["flower","flow","flight"]))
-console.log('longestCommonPrefix1:', longestCommonPrefix(''))
+
+/**
+ * @param {character[]} s
+ * @return {void} Do not return anything, modify s in-place instead.
+ */
+var reverseString = function(s) {
+  if (s.length == 0) {
+    return s
+  }
+  var i = 0
+  var j = s.length - 1
+  while(i < j) {
+    var item = s[i]
+    s[i] = s[j]
+    s[j] = item
+    i++
+    j--
+  }
+  return s
+};
+
+console.log('reverseString:', reverseString(''))
