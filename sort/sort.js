@@ -239,3 +239,38 @@ var repeatArr2 = function(arr) {
   return newArr
 };
 console.log('repeatArr1:', repeatArr1([1,2,1, true, 'true']))
+
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function(strs) {
+  if (strs.length === 0) {
+    return ''
+  }
+  // 找出最短的字符串
+  var minIndex = 0
+  for (var i = 0; i < strs.length; i++) {
+    if (strs[i].length < strs[minIndex].length) {
+      minIndex = i
+    }
+  }
+  // 将最短的字符串设置为公共前缀
+  var comonStr = strs[minIndex]
+  // 进行截取比较
+  for (var i = 0; i < strs.length; i++) {
+    for (var j = 0; j < strs[i].length && j < strs[minIndex].length; j++) {
+      if (comonStr[j] !== strs[i][j]) {
+        break
+      }
+    }
+    comonStr = strs[i].substr(0, j)
+    if (comonStr.length === 0) {
+      return ''
+    }
+  }
+  return comonStr
+};
+
+console.log('longestCommonPrefix:', longestCommonPrefix(["flower","flow","flight"]))
+console.log('longestCommonPrefix1:', longestCommonPrefix(''))

@@ -28,6 +28,7 @@ leetcode 题解，记录自己的 leetcode 解题之路。
 |[747. 至少是其他数字两倍的最大数](./arrAndString/747.md)|简单|
 |[67. 二进制求和](./arrAndString/67.md)|简单|
 |[数组去重](./arrAndString/repeatArr.md)|-|
+|[14. 最长公共前缀](./arrAndString/14.md)|简单|
 
 
 # 数据结构与算法的总结
