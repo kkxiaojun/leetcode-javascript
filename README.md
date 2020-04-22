@@ -28,6 +28,21 @@ leetcode 题解，记录自己的 leetcode 解题之路。
 |[747. 至少是其他数字两倍的最大数](./arrAndString/747.md)|简单|
 |[67. 二进制求和](./arrAndString/67.md)|简单|
 |[数组去重](./arrAndString/repeatArr.md)|-|
+｜[707. 设计链表](./queueStack/linkList.md)｜中等｜
 
+## 队列和栈
+**队列**
+1. FIFO
+2. 队列应支持两种操作：入队和出队。入队会向队列追加一个新元素，而出队会删除第一个元素。
+3. 出队操作的时候需要O(n)的时间复杂度
+
+**循环队列**
+1. 队空判断：rear === front
+2. 队满判断： (rear + 1) % len = front
+
+**栈**
+1. FILO
+
+**linkList**
 
 # 数据结构与算法的总结
