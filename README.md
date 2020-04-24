@@ -44,5 +44,7 @@ leetcode 题解，记录自己的 leetcode 解题之路。
 1. FILO
 
 **linkList**
+1. 查找O(n)
+2. 
 
 # 数据结构与算法的总结
