@@ -378,3 +378,243 @@ MyCircularQueue.prototype.isFull = function() {
 
    }
  }
+console.log('repeatArr1:', repeatArr1([1,2,1, true, 'true']))
+
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function(strs) {
+  if (strs.length === 0) {
+    return ''
+  }
+  // 找出最短的字符串
+  var minIndex = 0
+  for (var i = 0; i < strs.length; i++) {
+    if (strs[i].length < strs[minIndex].length) {
+      minIndex = i
+    }
+  }
+  // 将最短的字符串设置为公共前缀
+  var comonStr = strs[minIndex]
+  // 进行截取比较
+  for (var i = 0; i < strs.length; i++) {
+    for (var j = 0; j < strs[i].length && j < strs[minIndex].length; j++) {
+      if (comonStr[j] !== strs[i][j]) {
+        break
+      }
+    }
+    comonStr = strs[i].substr(0, j)
+    if (comonStr.length === 0) {
+      return ''
+    }
+  }
+  return comonStr
+};
+
+
+/**
+ * @param {character[]} s
+ * @return {void} Do not return anything, modify s in-place instead.
+ */
+var reverseString = function(s) {
+  if (s.length == 0) {
+    return s
+  }
+  var i = 0
+  var j = s.length - 1
+  while(i < j) {
+    var item = s[i]
+    s[i] = s[j]
+    s[j] = item
+    i++
+    j--
+  }
+  return s
+};
+
+console.log('reverseString:', reverseString(''))
+
+/**
+* Initialize your data structure here.
+*/
+var MyLinkedList = function() {
+  this.head = null
+  this.tail = null
+  this.length = 0
+};
+
+var listNode = function(val) {
+  this.val = val
+  this.next = null
+}
+
+/**
+* Get the value of the index-th node in the linked list. If the index is invalid, return -1. 
+* @param {number} index
+* @return {number}
+*/
+MyLinkedList.prototype.get = function(index) {
+  if (index >=0 && index < this.length) {
+      let i = 0
+      let cur = this.head
+      while (i < index) {
+          cur = cur.next
+          i ++
+      }
+      return cur.val
+  } else {
+      return -1
+  }
+};
+
+/**
+* Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. 
+* @param {number} val
+* @return {void}
+*/
+MyLinkedList.prototype.addAtHead = function(val) {
+  const lastHead = this.head
+  const node = new listNode(val)
+  this.head = node
+  this.head.next = lastHead
+  if (!this.tail) {
+      this.tail = node
+      this.tail.next = null
+  }
+  this.length ++
+};
+
+/**
+* Append a node of value val to the last element of the linked list. 
+* @param {number} val
+* @return {void}
+*/
+MyLinkedList.prototype.addAtTail = function(val) {
+  const lastTail = this.tail
+  const node = new listNode(val)
+  this.tail = node
+  if (lastTail) {      
+      lastTail.next = this.tail
+  }
+  if (!this.head) {
+      this.head = node
+      this.head.next = null
+  }
+  this.length ++
+};
+
+/**
+* Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. 
+* @param {number} index 
+* @param {number} val
+* @return {void}
+*/
+MyLinkedList.prototype.addAtIndex = function(index, val) {
+  if (index === this.length) {
+      this.addAtTail(val)
+  } else if (index <= 0) {
+      this.addAtHead(val)
+  } else if (index > 0 && index < this.length) {
+      let i = 0
+      let prev = this.head
+      while (i < index - 1) {
+          prev = prev.next
+          i ++
+      }
+      const node = new listNode(val)
+      node.next = prev.next
+      prev.next = node
+      this.length ++
+  }
+};
+
+/**
+* Delete the index-th node in the linked list, if the index is valid. 
+* @param {number} index
+* @return {void}
+*/
+MyLinkedList.prototype.deleteAtIndex = function(index) {
+  if (index > 0 && index < this.length) {
+      let i = 0
+      let prev = null
+      let cur = this.head
+      while (i < index) {
+          prev = cur
+          cur = cur.next
+          i ++
+      }
+      prev.next = cur.next
+      if (index === this.length - 1) {
+          this.tail = prev
+      }
+      this.length --
+  } else if (index === 0) {
+      this.head = this.head.next
+      this.length --
+  }
+};
+
+/** 
+* Your MyLinkedList object will be instantiated and called as such:
+* var obj = new MyLinkedList()
+* var param_1 = obj.get(index)
+* obj.addAtHead(val)
+* obj.addAtTail(val)
+* obj.addAtIndex(index,val)
+* obj.deleteAtIndex(index)
+*/
+
+// 设计实现单链表
+class MyLinkedList {
+  constructor () {
+    this.data = {}
+  }
+  get(index) {
+    if (index < 0) return -1
+    let curr = this.data
+    for (let i = 0; i < index; i++) {
+      if (!curr.next) return -1
+      curr = curr.next
+    }
+    console.log(curr.val)
+    return curr.val === undefined || curr.val === null ? -1 : curr.val
+  }
+  addAtHead(val) {
+    if (this.data && !(this.data.val === undefined || this.data.val === null)) {
+      this.data = { val, next: this.data }
+    } else {
+      this.data = { val, next: null }
+    }
+  }
+  addAtTail(val) {
+    let curr = this.data
+    while (curr.next) {
+      curr = curr.next
+    }
+    curr.next = { val, next: null }
+  }
+  addAtIndex(index, val) {
+    if (index <= 0) return this.addAtHead(val)
+    let curr = this.data
+    for (let i = 0; i < index - 1; i++) {
+      if (!curr || !curr.next) return null
+      curr = curr.next
+    }
+    if (!curr.val && curr.val !== 0) return null
+    curr.next = { val, next: curr.next }
+  }
+  deleteAtIndex(index) {
+    if (index < 0) return null
+    if (index === 0) return this.data = this.data.next
+    let curr = this.data
+    for (let i = 0; i < index - 1; i++) {
+      if (!curr.next || !curr.next.next) return null
+      curr = curr.next
+    }
+    console.log(JSON.stringify(curr))
+    if (!curr.next) return null
+    if (!curr.next.next) return curr.next = null
+    curr.next = curr.next.next
+  }
+}
