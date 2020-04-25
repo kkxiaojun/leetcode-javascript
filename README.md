@@ -31,10 +31,12 @@ leetcode 题解，记录自己的 leetcode 解题之路。
 |[747. 至少是其他数字两倍的最大数](./arrAndString/747.md)|简单|
 |[67. 二进制求和](./arrAndString/67.md)|简单|
 |[数组去重](./arrAndString/repeatArr.md)|-|
-｜[707. 设计链表](./queueStack/linkList.md)｜中等｜
 |[14. 最长公共前缀](./arrAndString/14.md)|简单|
-|[344. 反正字符串](./arrAndString/344.md)|简单|
+|[344. 反正字符串](./arrAndString/344.md)|简单|[707. 设计链表](./queueStack/linkList.md)｜中等｜
+|[24. 反转链表](./queueStack/reverseLinkList.md)| 简单|
 
+
+# 数据结构总结
 ## 队列和栈
 **队列**
 1. FIFO
@@ -50,6 +52,13 @@ leetcode 题解，记录自己的 leetcode 解题之路。
 
 **linkList**
 1. 查找O(n)
-2. 
 
-# 数据结构与算法的总结
+## 哈希表
+**哈希函数**
+
+**冲突解决**
+1.开放地址方法
+2.链式地址法（HashMap的哈希冲突解决方法） 
+
+
+# 算法总结
