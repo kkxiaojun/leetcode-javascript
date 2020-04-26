@@ -46,4 +46,42 @@ var findRepeatNumber1 = function(nums) {
   return -1
 };
 
-console.log('---------findRepeatNumber--------', findRepeatNumber1([0, 1, 2, 3, 4, 5, 5]))
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ * 二分查找
+ */
+var search = function(nums, target) {
+  var pivot, left = 0, right = nums.length -1
+  while (left <= right) {
+    pivot = left + parseInt((right - left) / 2)
+    if (nums[pivot] === target) {
+      return pivot
+    } else if (target < nums[pivot]) {
+      right = pivot - 1
+    } else {
+      left = pivot + 1
+    }
+  }
+  return -1
+};
+
+var mySqrt = function(x) {
+  if (x < 2) {
+    return x
+  }
+  var pivot, left = 2, right = parseInt(x / 2)
+  while (left <= right) {
+    pivot = left + parseInt((right - left) / 2)
+    var nums = parseInt(pivot * pivot)
+    if (nums > x) {
+      right = pivot - 1
+    } else if (nums < x) {
+      left = pivot + 1
+    } else {
+      return parseInt(pivot)
+    }
+  }
+  return right
+};
