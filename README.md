@@ -36,6 +36,7 @@ leetcode 题解，记录自己的 leetcode 解题之路。
 |[24. 反转链表](./queueStack/reverseLinkList.md)| 简单|
 |[平方根](./queueStack/平方根.md)|简单|
 |[二分查找](./queueStack/二分查找.md)|简单|
+|[面试题04：二维数组中的查找](./offer/04.md)|简单|
 
 
 # 数据结构总结

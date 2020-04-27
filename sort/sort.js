@@ -85,3 +85,31 @@ var mySqrt = function(x) {
   }
   return right
 };
+
+/**
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+var findNumberIn2DArray = function(matrix, target) {
+  // 空则返回false
+  if (natrix == null || matrix.length == 0 || matrix[0].length) {
+    return false
+  }
+  // 获取初始length
+  var rows = matrix.length, columns = matrix[0].length
+  // 初始化下标
+  var rowIndex = 0, columnIndex = columns - 1
+  while(rowIndex < rows && columnIndex >= 0) {
+    var cur = matrix[rowIndex][columnIndex]
+    // 进行三种情况判断
+    if (cur === target) {
+      return true
+    } else if (cur > target) {
+      columnIndex--
+    } else {
+      rowIndex++
+    }
+  }
+  return false
+};
