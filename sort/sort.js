@@ -131,6 +131,19 @@ var merge = function(nums1, m, nums2, n) {
   // add missing elements from nums2
   nums1.splice(0, p2 + 1, ...(nums2.slice(0, p2 + 1)))
 };
+var preorderTraversal = function(root) {
+  var printArr = []
+  var stack = []
+  stack.push(root)
+  while(stack.length > 0) {
+    var popValue = stack.pop()
+    printArr.push(popValue.val)
+    popValue.right && stack.push(popValue.right)
+    popValue.left && stack.push(popValue.left)
+  }
+  return printArr
+}
+
 
 /**
  * Definition for a binary tree node.
@@ -141,8 +154,76 @@ var merge = function(nums1, m, nums2, n) {
  */
 /**
  * @param {TreeNode} root
- * @return {number[]}
+ * @return {number[][]}
  */
-var preorderTraversal = function(root) {
-
+var levelOrder = function(root) {
+  if (root) {
+    return [[root.val], levelOrder(root.left), levelOrder(root.right)]
+  } else {
+    return []
+  }
 };
+
+console.log('levelOrder:', )
+
+
+var levelOrder = function(root) {
+  if(!root)
+    return []
+  var levels = [root]
+  var result = []
+  while(levels.length > 0){
+    var n = levels.length
+    // 每一层的迭代结果
+    var currentResult = []
+    // 每一层的迭代
+    while( n-- > 0){
+      // 弹出第一项
+      var node = levels.shift()
+      currentResult.push(node.val)
+      node.left && levels.push(node.left)
+      node.right && levels.push(node.right)
+    }
+    result.push(currentResult)
+  }
+  return result
+};
+
+// 层次遍历：采用队列的方式
+var levelOrder1 = function(root) {
+  if (!root) {
+    return []
+  }
+  var levels = [root]
+  var result = []
+  while (levels.length > 0) {
+    var n = levels.length
+    var currentResult = []
+    while (n-- > 0) {
+      var node = levels.shift()
+      currentResult.push(node.val)
+      node.left && levels.push(node.left)
+      node.right && levels.push(node.right)
+    }
+    result.push(currentResult)
+  }
+  return result
+};
+
+// 先序遍历：采用栈的方式
+var preorderTraversal = function(root) {
+  if (!root) {
+    return []
+  }
+  var stack = []
+  var resultArr = []
+  stack.push(root)
+  while (stack.length > 0) {
+    var popValue = stack.pop()
+    resultArr.push(popValue.val)
+    popValue.right && stack.push(popValue.right)
+    popValue.left && stack.push(popValue.left)
+  }
+  return resultArr
+}
+
