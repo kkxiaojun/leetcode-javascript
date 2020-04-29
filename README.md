@@ -33,12 +33,29 @@ leetcode 题解，记录自己的 leetcode 解题之路。
 |[67. 二进制求和](./arrAndString/67.md)|简单|
 |[数组去重](./arrAndString/repeatArr.md)|-|
 |[14. 最长公共前缀](./arrAndString/14.md)|简单|
-|[344. 反正字符串](./arrAndString/344.md)|简单|[707. 设计链表](./queueStack/linkList.md)｜中等｜
+|[344. 反正字符串](./arrAndString/344.md)|简单|
+
+## 链表
+|题目|难度|
+|--|--|
+|[707. 设计链表](./queueStack/linkList.md)|中等|
 |[24. 反转链表](./queueStack/reverseLinkList.md)| 简单|
+
+# 二分查找
+|题目|难度|
+|--|--|
 |[平方根](./queueStack/平方根.md)|简单|
 |[二分查找](./queueStack/二分查找.md)|简单|
 |[面试题04：二维数组中的查找](./offer/04.md)|简单|
 
+## 二叉树
+|题目|难度|
+|--|--|
+|[前序遍历](./tree/前序遍历.md)|中等|
+|[层次遍历](./tree/层次遍历.md)|中等|
+|[二叉树的最大深度](./tree/二叉树的最大深度.md)|中等|
+|[对称二叉树](./tree/对称二叉树.md)|简单|
+|[路径总和](./tree/路径总和.md)|简单|
 
 # 数据结构总结
 ## 队列和栈
@@ -78,6 +95,49 @@ leetcode 题解，记录自己的 leetcode 解题之路。
 
 宽度优先搜索（BFS）
 * 层序遍历
+
+### 运用递归解决树的问题
+总结：
+
+1. “自顶向下” 的解决方案
+```
+private int answer;		// don't forget to initialize answer before call maximum_depth
+private void maximum_depth(TreeNode root, int depth) {
+    if (root == null) {
+        return;
+    }
+    if (root.left == null && root.right == null) {
+        answer = Math.max(answer, depth);
+    }
+    maximum_depth(root.left, depth + 1);
+    maximum_depth(root.right, depth + 1);
+}
+```
+2. “自底向上” 的解决方案
+```
+public int maximum_depth(TreeNode root) {
+	if (root == null) {
+		return 0;                                   // return 0 for null node
+	}
+	int left_depth = maximum_depth(root.left);
+	int right_depth = maximum_depth(root.right);
+	return Math.max(left_depth, right_depth) + 1;	// return depth of the subtree rooted at root
+}
+```
+
+了解递归并利用递归解决问题并不容易。
+当遇到树问题时，请先思考一下两个问题：
+
+1. 你能确定一些参数，从该节点自身解决出发寻找答案吗？
+2. 你可以使用这些参数和节点本身的值来决定什么应该是传递给它子节点的参数吗？
+
+如果答案都是肯定的，那么请尝试使用 “自顶向下” 的递归来解决此问题。
+
+或者你可以这样思考：对于树中的任意一个节点，如果你知道它子节点的答案，你能计算出该节点的答案吗？ 
+
+如果答案是肯定的，那么 “自底向上” 的递归可能是一个不错的解决方法。
+
+在接下来的章节中，我们将提供几个经典例题，以帮助你更好地理解树的结构和递归。
 
 # 算法总结
 ## 二分查找
