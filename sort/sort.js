@@ -6,18 +6,22 @@
  * }
  */
 /**
- * @param {number[]} preorder
- * @param {number[]} inorder
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
  * @return {TreeNode}
  */
-var buildTree = function(preorder, inorder) {
-  if (!preorder.length) {
-    return null
+var lowestCommonAncestor = function(root, p, q) {
+  if (!root || root === p || root === q) {
+    return root
   }
-  var tmp = preorder[0]
-  var mid = inorder.indexOf(tmp)
-  var root = new TreeNode(tmp)
-  root.left = buildTree(preorder.slice(1, mid + 1), inorder.slice(0, mid))
-  root.right = buildTree(preorder.slice(mid + 2), inorder.slice(mid + 1, inorder.length - 1))
+  var left = lowestCommonAncestor(root.left, p, q)
+  var right = lowestCommonAncestor(root.right, p, q)
+  if (!left) {
+    return right
+  }
+  if (!right) {
+    return left
+  }
   return root
 };
