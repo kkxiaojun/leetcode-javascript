@@ -44,14 +44,39 @@ var twoSum = function(nums, target) {
   if (nums.length === 0) {
     return nums
   }
-  var mapObj = new Map()
+  var map = new Map()
   // 先储存一份数据
-  for (let nums = 0; nums < nums.length; nums++) {
-    Map.set(nums[i], nums[i])
+  for (let i = 0; i < nums.length; i++) {
+    map.set(nums[i], i)
   }
   // target - nums[1]
-  for (let index = 0; index < array.length; index++) {
-    const element = array[index];
-    
+  for (let i = 0; i < nums.length; i++) {
+    let item = target - nums[i]
+    if (map.has(item) && map.get(item) !== i) {
+      return [i, map.get(item)]
+    }
   }
+  return []
 }
+
+console.log('---', twoSum([2, 7, 11, 15], 9))
+
+// 二分查找
+var twoSum1 = function(nums, target) {
+  if (nums.length === 0) {
+    return [-1, -1]
+  }
+  var i = 0, j = nums.length - 1;
+  while (i < j) {
+    if (target === nums[i] + nums [j]) {
+      return [i + 1, j + 1]
+    } else if (target > nums[i] + nums [j]) {
+      i++
+    } else {
+      j--
+    }
+  }
+  return [-1, -1]
+}
+
+console.log('---', twoSum1([2, 7, 11, 15], 9))
