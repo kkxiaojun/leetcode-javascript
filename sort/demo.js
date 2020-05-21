@@ -1,4 +1,4 @@
-// list
+// list, js get the listNode
 let myLinkList = function () {
   this.head = null
   this.tail = null
