@@ -80,3 +80,22 @@ var twoSum1 = function(nums, target) {
 }
 
 console.log('---', twoSum1([2, 7, 11, 15], 9))
+
+
+/**
+ * @param {number} s
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minSubArrayLen = function(s, nums) {
+  var ans = Number.MAX_SAFE_INTEGER
+  var i = 0
+  var sum = 0
+  for (var j = 0; j < nums.length; j++) {
+    sum += nums[j]
+    while (sum >= s) {
+      ans = Math.min(ans, j - i + 1)
+      sum -= nums[i++]
+    }
+  }
+};
