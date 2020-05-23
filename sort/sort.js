@@ -81,21 +81,33 @@ var twoSum1 = function(nums, target) {
 
 console.log('---', twoSum1([2, 7, 11, 15], 9))
 
-
+// 解答
+// 1. MAX_SAFE_INTEGER
+// 2. i,j双指针
+// 3. j移动，i不动
+// 4. i移动，j不动
 /**
  * @param {number} s
  * @param {number[]} nums
  * @return {number}
  */
 var minSubArrayLen = function(s, nums) {
+  var max = Number.MAX_SAFE_INTEGER
   var ans = Number.MAX_SAFE_INTEGER
   var i = 0
-  var sum = 0
-  for (var j = 0; j < nums.length; j++) {
-    sum += nums[j]
-    while (sum >= s) {
+  var sums = 0
+  var len = nums.length
+  for ( var j = 0; j < len; j++) {
+    sums += nums[j]
+    while(sums >= s) {
       ans = Math.min(ans, j - i + 1)
-      sum -= nums[i++]
+      sums -= nums[i]
+      i++
     }
   }
+  return ans === max ? 0 : ans
 };
+console.log('minSubArrayLen:', minSubArrayLen(7, [2,3,1,2,4,3]))
+
+
+
