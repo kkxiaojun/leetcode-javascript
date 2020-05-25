@@ -8,109 +8,28 @@
 </head>
 <body>
 <script>
-var validPalindrome = function (s) {
-  const len = s.length
-  let i = 0
-  let j = len - 1
-  // 先遍历满足回文对称性的部分，先满足回文对称性的部分要求
-  while(i < j && s[i] === s[j]) {
-    i++
-    j--
-  }
-  // 接着，跳过不满足的部分，先遍历[left+1, right]区间，判断是否满足回文的对称性
-  if (isPalindrome(i+1, j)) {
-    return true
-  }
-  // 再遍历[left, right -1]部分是否满足回文的对称性
-
-  if (isPalindrome(i, j + 1)) {
-    return true
-  }
-
-  function isPalindrome(start, end) {
-    while(start < end) {
-      if(s[start] !== s[end]) {
-        return false
-      }
-      start++
-      end--
-    }
-    return true
-  }
-  return false
-}
-console.log('validPalindrome:', validPalindrome('acd'))
-
 /**
- * @param {ListNode} l1
- * @param {ListNode} l2
+ * @param {ListNode} head
+ * @param {number} n
  * @return {ListNode}
  */
- const mergeTwoLists = function(l1, l2) {
-   // 定义头节点
-   let head = new ListNode()
-   // 合并后的链表
-   let cur = head
-   // 遍历两个链表
-   while(l1 && l2) {
-     // 将较小的节点，接入新链表
-    if(l1.val <= l2.val) {
-      // l1推入新链表
-      cur.next = l1
-      // L1 往前走
-      l1 = l1.next
-    } else {
-      // l2推入新链表
-      cur.next = l2
-      // L2 往前走
-      l2 = l2.next
-    }
-    // 成功推入一个新节点，cur往前走
-    cur = cur.next
-   }
-   // 处理链表长度不同的情况
-   cur.next = l1 !== null ? l1 :  l2
-   // 返回起始节点
-   return head.next
- }
-
-const deleteNode = function (head) {
-  // 设定head为遍历的开始
-  let cur = head
-  // 遍历链表
-  while (cur !==null && cur.next !== null) {
-    // 当前节点与next节点相等
-    if(cur.val === cur.next.val) {
-      // 删除next节点
-      cur.next = cur.next.next
-    } else {
-      // 不重复，继续往下走
-      cur = cur.next
-    }
-  }
-  return head
-} 
-
-const deleteDuplicates = function (head) {
-  if (!head || !head.next) {
-    return head
-  }
-  // 设置dummy节点
-  let dummy = new NodeList()
-  // dummy指向head
+ const removeNthFromEnd = function(head, n) {
+  let dummy = new ListNode()
   dummy.next = head
-  // 从dummy节点开始遍历
-  let cur = dummy
-  while(!cur.next && !cur.next.next) {
-    if(cur.next.val === cur.next.next.val) {
-      let val = cur.next.val
-      while(cur.next && cur.next.val === val) {
-        cur.next = cur.next.next
-      }
-    } else {
-      cur = cur.next
-    }
+  let fast = dummy
+  let slow = dummy
+  // 快指针先行n
+  while(n !== 0) {
+    fast = fast.next
+    n--
   }
+  // 快慢指针一起遍历到底
+  while(!fast.next) {
+    fast = fast.next
+    slow = slow.next
+  }
+  // 删除第n个节点
+  slow.next = slow.next.next
   return dummy.next
 }
 </script>
