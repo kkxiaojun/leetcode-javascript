@@ -94,6 +94,41 @@ const reverseBetween = function (head, m, n) {
   start.next = cur
   return dummy.next
 }
+
+// 判断链表是否成环
+const hasCycle = function(head) {
+  // 只要节点存在，就遍历
+  while(head) {
+    // 回到有标记的地方，则说明成环
+    if (head.flag) {
+      return true
+    } else {
+      // 继续往前走
+      head.flag = true
+      head = head.next
+    }
+  }
+  return true
+}
+
+// 判断是否成环
+const detectCycle = function(head) {
+  while(head) {
+    if(head.flag) {
+      return head
+    } else {
+      head.flag = true
+      head = head.next
+    }
+  }
+  return null
+}
+
+// 判断是否成环-快慢指针
+const detectCycle1 = function (head) {
+  
+}
+
 </script>
 </body>
 </html>
