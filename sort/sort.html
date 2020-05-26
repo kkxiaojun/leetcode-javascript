@@ -32,6 +32,68 @@
   slow.next = slow.next.next
   return dummy.next
 }
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+ const reverseList = function(head) {
+  let pre = null
+  let cur = head
+  while(cur !== null) {
+    // 保存next的后继节点
+    let next = cur.next
+    // 反转
+    cur.next = pre
+    // pre往前移动
+    pre = cur
+    // cur往前移动
+    cur = next
+  }
+  return pre
+}
+
+
+
+// 局部反转一个链表
+
+const reverseBetween = function (head, m, n) {
+  let pre = null
+  let cur = null
+  let leftHead = null
+  // 创建dummy节点
+  let dummy = new NodeList()
+  // 指向head
+  dummy.next = head
+  // 创建游标p
+  let p = dummy
+  // 找出区间的前驱节点
+  for (let i = 0; i < m - 1; i++) {
+    p = p.next
+  }
+  // 缓存区间的前驱结点
+  leftHead = p
+  // 区间的开始节点（即反转后的区间尾结点）
+  let start = leftHead.next
+  pre = start
+  cur = pre.next
+  // 开始反转
+  for (let i = m; i < n; i++) {
+    // 存储后继节点
+    let next = cur.next
+    // 反转链表
+    cur.next = pre
+    // pre前进
+    pre = cur
+    // cur前进
+    cur = next
+  }
+  // leftHead指向 反转后的head
+  leftHead.next = pre
+  // 反转后的区间尾结点指向 cur
+  start.next = cur
+  return dummy.next
+}
 </script>
 </body>
 </html>
