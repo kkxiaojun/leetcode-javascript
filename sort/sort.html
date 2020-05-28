@@ -8,127 +8,96 @@
 </head>
 <body>
 <script>
-/**
- * @param {ListNode} head
- * @param {number} n
- * @return {ListNode}
- */
- const removeNthFromEnd = function(head, n) {
-  let dummy = new ListNode()
-  dummy.next = head
-  let fast = dummy
-  let slow = dummy
-  // 快指针先行n
-  while(n !== 0) {
-    fast = fast.next
-    n--
-  }
-  // 快慢指针一起遍历到底
-  while(!fast.next) {
-    fast = fast.next
-    slow = slow.next
-  }
-  // 删除第n个节点
-  slow.next = slow.next.next
-  return dummy.next
-}
+// 用一个 map 来维护左括号和右括号的对应关系
+const leftToRight = {
+  "(": ")",
+  "[": "]",
+  "{": "}"
+};
 
 /**
- * @param {ListNode} head
- * @return {ListNode}
+ * @param {string} s
+ * @return {boolean}
  */
- const reverseList = function(head) {
-  let pre = null
-  let cur = head
-  while(cur !== null) {
-    // 保存next的后继节点
-    let next = cur.next
-    // 反转
-    cur.next = pre
-    // pre往前移动
-    pre = cur
-    // cur往前移动
-    cur = next
+const isValid = function(s) {
+  if(!s) {
+    return false
   }
-  return pre
-}
-
-
-
-// 局部反转一个链表
-
-const reverseBetween = function (head, m, n) {
-  let pre = null
-  let cur = null
-  let leftHead = null
-  // 创建dummy节点
-  let dummy = new NodeList()
-  // 指向head
-  dummy.next = head
-  // 创建游标p
-  let p = dummy
-  // 找出区间的前驱节点
-  for (let i = 0; i < m - 1; i++) {
-    p = p.next
-  }
-  // 缓存区间的前驱结点
-  leftHead = p
-  // 区间的开始节点（即反转后的区间尾结点）
-  let start = leftHead.next
-  pre = start
-  cur = pre.next
-  // 开始反转
-  for (let i = m; i < n; i++) {
-    // 存储后继节点
-    let next = cur.next
-    // 反转链表
-    cur.next = pre
-    // pre前进
-    pre = cur
-    // cur前进
-    cur = next
-  }
-  // leftHead指向 反转后的head
-  leftHead.next = pre
-  // 反转后的区间尾结点指向 cur
-  start.next = cur
-  return dummy.next
-}
-
-// 判断链表是否成环
-const hasCycle = function(head) {
-  // 只要节点存在，就遍历
-  while(head) {
-    // 回到有标记的地方，则说明成环
-    if (head.flag) {
-      return true
+  let stack = []
+  let len = s.length
+  for (let i = 0; i < len; i++) {
+    let cur = s[i]
+    if (cur === '(' || cur === '[' || cur === '{') {
+      stack.push(leftToRight[cur])
     } else {
-      // 继续往前走
-      head.flag = true
-      head = head.next
+      // 栈不为空，且栈顶的元素与左边的不匹配
+      if (!stack.length || stack.pop() !== cur) {
+        return false
+      }
     }
   }
-  return true
+  return !stack.length
 }
 
-// 判断是否成环
-const detectCycle = function(head) {
-  while(head) {
-    if(head.flag) {
-      return head
-    } else {
-      head.flag = true
-      head = head.next
+console.log(isValid('[[()]]'))
+console.log(isValid('[[()]'))
+
+/**
+ * @param {number[]} T
+ * @return {number[]}
+ */
+// 入参是温度数组
+const dailyTemperatures = function(T) {
+  let len = T.length
+  // 结果数组
+  let result = (new Array(len)).fill(0)
+  // 递减的索引数组
+  let stack = []
+  for (let i = 0; i < len; i++) {
+    while(stack.length && T[i] > T[stack[stack.length - 1]]) {
+      let top = stack.pop()
+      result[top] = i - top
+    }
+    stack.push(i)
+  }
+  return result
+}
+
+console.log('dailyTemperatures:', dailyTemperatures( [73, 74, 75, 71, 69, 72, 76, 73]))
+
+
+const Myqueue = function () {
+  this.stack1 = []
+  this.stack2 = []
+}
+
+Myqueue.prototype.push = function (val) {
+  this.stack1.push(val)
+}
+Myqueue.prototype.peek = function (val) {
+  // stack2为空，需要把stack1同步过来
+  while(this.stack2.length <= 0) {
+    // stack1不为空
+    while(this.stack1.length) {
+      this.stack2.push(this.stack1.pop())
     }
   }
-  return null
+  const len = this.stack2.length
+  return len && this.stack2[len - 1] 
 }
-
-// 判断是否成环-快慢指针
-const detectCycle1 = function (head) {
-  
+Myqueue.prototype.pop = function (val) {
+  // stack2为空，需要把stack1同步过来
+  while(this.stack2.length <= 0) {
+    // stack1不为空
+    while(this.stack1.length) {
+      this.stack2.push(this.stack1.pop())
+    }
+  }
+  return this.stack2.pop()
 }
-
+Myqueue.prototype.empty = function (val) {
+  return !this.stack1.length && !this.stack2.length
+}
 </script>
 </body>
 </html>
