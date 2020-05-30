@@ -8,95 +8,25 @@
 </head>
 <body>
 <script>
-// 用一个 map 来维护左括号和右括号的对应关系
-const leftToRight = {
-  "(": ")",
-  "[": "]",
-  "{": "}"
-};
-
 /**
- * @param {string} s
- * @return {boolean}
- */
-const isValid = function(s) {
-  if(!s) {
-    return false
-  }
-  let stack = []
-  let len = s.length
-  for (let i = 0; i < len; i++) {
-    let cur = s[i]
-    if (cur === '(' || cur === '[' || cur === '{') {
-      stack.push(leftToRight[cur])
-    } else {
-      // 栈不为空，且栈顶的元素与左边的不匹配
-      if (!stack.length || stack.pop() !== cur) {
-        return false
-      }
-    }
-  }
-  return !stack.length
-}
-
-console.log(isValid('[[()]]'))
-console.log(isValid('[[()]'))
-
-/**
- * @param {number[]} T
+ * @param {number[]} nums
+ * @param {number} k
  * @return {number[]}
  */
-// 入参是温度数组
-const dailyTemperatures = function(T) {
-  let len = T.length
+var maxSlidingWindow = function(nums, k) {
+  // 缓存数组长度
+  let len = nums.length
   // 结果数组
-  let result = (new Array(len)).fill(0)
-  // 递减的索引数组
-  let stack = []
-  for (let i = 0; i < len; i++) {
-    while(stack.length && T[i] > T[stack[stack.length - 1]]) {
-      let top = stack.pop()
-      result[top] = i - top
-    }
-    stack.push(i)
-  }
-  return result
-}
+  let result = []
+  // 左指针
+  let left = 0
+  // 右指针
+  let right = 0
+  while(right < len) {}
+};
 
-console.log('dailyTemperatures:', dailyTemperatures( [73, 74, 75, 71, 69, 72, 76, 73]))
+var calMax = function(nums, left, right) {
 
-
-const Myqueue = function () {
-  this.stack1 = []
-  this.stack2 = []
-}
-
-Myqueue.prototype.push = function (val) {
-  this.stack1.push(val)
-}
-Myqueue.prototype.peek = function (val) {
-  // stack2为空，需要把stack1同步过来
-  while(this.stack2.length <= 0) {
-    // stack1不为空
-    while(this.stack1.length) {
-      this.stack2.push(this.stack1.pop())
-    }
-  }
-  const len = this.stack2.length
-  return len && this.stack2[len - 1] 
-}
-Myqueue.prototype.pop = function (val) {
-  // stack2为空，需要把stack1同步过来
-  while(this.stack2.length <= 0) {
-    // stack1不为空
-    while(this.stack1.length) {
-      this.stack2.push(this.stack1.pop())
-    }
-  }
-  return this.stack2.pop()
-}
-Myqueue.prototype.empty = function (val) {
-  return !this.stack1.length && !this.stack2.length
 }
 </script>
 </body>
