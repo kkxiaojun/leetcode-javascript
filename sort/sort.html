@@ -114,6 +114,27 @@ const subsets = function(nums) {
   return result
 }
 console.log('subsets:', subsets([1,2,3]))
+const levelOrder = function(root) {
+  let res = []
+  if(!root){
+    return res
+  }
+  let queue = []
+  queue.push(root)
+  while(queue.length) {
+    let level = []
+    let len = queue.length
+    for(let i = 0; i < len; i++){
+      let top = queue.shift()
+      level.push(top.val)
+      top.left && queue.push(top.left)
+      top.right && queue.push(top.right)
+    }
+    res.push(level)
+  }
+  return res
+}
+console.log('levelOrder:', levelOrder([3,9,20,null,null,15,7]))
 </script>
 </body>
 </html>
