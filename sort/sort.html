@@ -8,133 +8,83 @@
 </head>
 <body>
 <script>
-/**
- * @param {number[]} nums
- * @param {number} k
- * @return {number[]}
- */
- const maxSlidingWindow = function (nums, k) {
-  if (!nums || nums.length < 2) {
-    return nums
+function isArray(arr) {
+  if (typeof Array.isArray === 'function') {
+    return Array.isArray(arr)
+  } else {
+    return Object.prototype.toString.call(arr) === '[object Array]'
   }
-  // 缓存数组长度
-  let len = nums.length
-  // 结果数组
-  let res = []
-  // 双端队列,存储的是数组下标
-  let que = []
+}
+const bubbleSort = function(arr) {
+  if (!isArray(arr)) {
+    return null
+  }
+  let len = arr.length
+  let temp = null
   for (let i = 0; i < len; i++) {
-    // 检查当前元素，是否大于队尾元素，是则que出队，直到满足que递减
-    while (que.length && nums[i] > nums[que[que.length - 1]]) {
-      que.pop()
-    }
-    // 入队
-    que.push(i)
-    // 检查队头元素是否在滑动窗口内
-    while (que[0] <= i - k) {
-      que.shift()
-    }
-    // 未初始化完成的情况
-    if (i >= k -1) {
-      res.push(nums[que[0]])
-    }
-  }
-  return res
- }
- console.log('maxSlidingWindow', maxSlidingWindow([1,3,-1,-3,5,3,6,7], 3))
-
- /**
- * @param {number[]} nums
- * @return {number[][]}
- */
-// 入参是一个数组
-const permute = function(nums) {
-  // 存储数组长度
-  let len = nums.length
-  // 结果数组
-  let result = []
-  if (len === 0) {
-    return nums
-  }
-  // 记录数字是否使用过
-  let visited = {}
-  // 当前左右的排列顺序
-  let cur = []
-  // 当前的排列内容
-  function dfs(nth) {
-    if (nth === len) {
-      // 深拷贝
-      result.push(cur.slice())
-      return
-    }
-    for (let i = 0; i < len; i++) {
-      // 已经用过的数字不再占坑
-      if (visited[nums[i]]) {
-        continue
+    for (let j = 0; j < len - i - 1; j++) {
+      if(arr[j] > arr[j + 1]) {
+        temp = arr[j + 1]
+        arr[j + 1] = arr[j]
+        arr[j] = temp
       }
-      // 推入当前顺序
-      cur.push(nums[i])
-      // 标记已使用
-      visited[nums[i]] = true
-      // 基于这个坑，继续下一个坑
-      dfs(nth+1)
-      // 回溯
-      cur.pop()
-      // 重置状态
-      visited[nums[i]] = false
     }
   }
-  dfs(0)
-  return result
+  return arr
 }
-console.log('permute:', permute([1,2,3]))
 
-/**
- * @param {number[]} nums
- * @return {number[][]}
- */
-// 入参是一个数组
-const subsets = function(nums) {
-  let len = nums.length
-  let result = []
-  if (!len) {
-    return result
+// 快速排序入口
+function quickSort(arr, left = 0, right = arr.length - 1) {
+  // 定义递归边界，若子数组只有一个元素，则没有排序必要
+  if(arr.length > 1) {
+      // 计算当前数组的基准值
+      const nextPivot = partition(arr, left, right)  
+      // 如果左边子数组的长度不小于1，则递归快排这个子数组
+      if(left < nextPivot-1) {
+          quickSort(arr, left, nextPivot-1)
+      }
+      // 如果右边子数组的长度不小于1，则递归快排这个子数组
+      if(nextPivot<right) {
+          quickSort(arr, nextPivot, right)
+      }
   }
-  // 组合数组
-  let subset = []
-  dfs(0)
-  function dfs(index) {
-    result.push(subset.slice())
-    for (let i = index; i < len; i++) {
-      subset.push(nums[i])
-      dfs(i + 1)
-      subset.pop()
-    }
+  return arr
+}   
+// 寻找基准值的过程
+function partition(arr, left, right) {
+  // 基准值默认取中间位置的元素
+  let pivotValue = arr[Math.floor(left + (right-left)/2)]
+  // 初始化左右指针
+  let i = left 
+  let j = right  
+  // 当左右指针不越界时，循环执行以下逻辑
+  while(i<=j) {
+      // 左指针所指元素若不大于基准值，则右移左指针
+      while(arr[i] < pivotValue) {
+          i++
+      }
+      // 右指针所指元素若不小于基准值，则左移右指针
+      while(arr[j]>pivotValue) {
+          j--
+      }
+
+      // 若i<=j，则意味着基准值左边存在较大元素或右边存在较小元素，交换两个元素确保左右两侧有序
+      if(i<=j) {
+          swap(arr, i, j)  
+          i++  
+          j--
+      }
+      
   }
-  return result
+  // 返回左指针索引作为下一个基准值的索引
+  return i
 }
-console.log('subsets:', subsets([1,2,3]))
-const levelOrder = function(root) {
-  let res = []
-  if(!root){
-    return res
-  }
-  let queue = []
-  queue.push(root)
-  while(queue.length) {
-    let level = []
-    let len = queue.length
-    for(let i = 0; i < len; i++){
-      let top = queue.shift()
-      level.push(top.val)
-      top.left && queue.push(top.left)
-      top.right && queue.push(top.right)
-    }
-    res.push(level)
-  }
-  return res
+
+// 快速排序中使用 swap 的地方比较多，我们提取成一个独立的函数
+function swap(arr, i, j) {
+  [arr[i], arr[j]] = [arr[j], arr[i]]
 }
-console.log('levelOrder:', levelOrder([3,9,20,null,null,15,7]))
+console.log('quickSort:', quickSort([1,3,5,7]))
 </script>
 </body>
 </html>
