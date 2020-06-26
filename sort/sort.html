@@ -4,13 +4,86 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="sort.js"></script>
+  <!-- <script src="sort.js"></script> -->
 </head>
 <body>
 <script>
-const mergeTwoList = function(l1, l2) {
-  
+
+const quickSort = function(arr, left = 0, right = arr.length - 1) {
+  if (arr.length === 1) {
+    return arr
+  }
+  if (arr.length > 1) {
+    const middleIndex = partition(arr, left, right)
+    if (left < middleIndex - 1) {
+      quickSort(arr, left, middleIndex - 1)
+    }
+    if (middleIndex < right) {
+      quickSort(arr, middleIndex, right)
+    }
+  }
+  return arr
 }
+
+const partition = function (arr, left, right) {
+  // 计算枢轴元素的位置
+  const middle = Math.floor(left + (right - left) / 2)
+  // 迭代，两个指针
+  let i = left
+  let j = right
+  while(i < j) {
+    // 左边元素小于枢轴位置的元素
+    while (arr[i] < arr [middle]) {
+      i++
+    }
+    // 右边的元素大于枢轴位置的元素
+    while(arr[middle] < arr[j]) {
+      j--
+    }
+    // 发生了交互
+    if (i <= j) {
+      [arr[i], arr[j]] = [arr[j], arr[i]]
+      i++
+      j--
+    }
+  }
+  return i
+}
+
+console.log('quickSort:', quickSort([2,3,1]))
+
+const mergeSort = function (arr) {
+  const len = arr.length
+  if (len < 2) {
+    return arr
+  }
+  let middle = Math.floor(len / 2)
+  let left = arr.slice(0, middle)
+  let right = arr.slice(middle, len)
+  return merge(mergeSort(left), mergeSort(right))
+}
+
+const merge = function (left, right) {
+  var result = [];
+
+  while (left.length && right.length) {
+      if (left[0] <= right[0]) {
+          result.push(left.shift());
+      } else {
+          result.push(right.shift());
+      }
+  }
+
+  while (left.length)
+      result.push(left.shift());
+
+  while (right.length)
+      result.push(right.shift());
+
+  return result;
+}
+
+console.log('mergeSort:', mergeSort([1,4,8,2]))
 </script>
 </body>
 </html>
